@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BackInMotion Staff Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--or:#f08a24;--or2:#e07a12;--ortint:#fff4e8;--ink:#1f2a30;--mut:#7b8890;--line:#ececf0;--soft:#f6f7f9;--ok:#1f9d55;--bad:#d93b3b}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:radial-gradient(900px 500px at 10% 0%,#f4efe9,transparent 70%),#e9ecef;padding:32px 20px;color:var(--ink);font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:13.5px;line-height:1.5}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,p{margin:0}
+button,input,select{font-family:inherit;font-size:inherit;color:inherit}
+.win{max-width:1240px;margin:0 auto;background:#fff;border-radius:26px;box-shadow:0 30px 70px rgba(31,42,48,.14),0 0 0 1px rgba(31,42,48,.04);display:grid;grid-template-columns:232px 1fr;overflow:hidden;min-height:780px}
+/* sidebar */
+.sb{border-right:1px solid var(--line);padding:18px 14px;display:flex;flex-direction:column;background:#fff}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:16px;padding:2px 8px 18px;letter-spacing:-.02em}
+.sb label.l{font-size:11px;color:var(--mut);font-weight:600;padding:12px 10px 6px;display:block}
+.ni{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;padding:9px 10px;border-radius:10px;font-weight:600;color:#4b5a62;cursor:pointer;text-align:left;transition:background .2s,color .2s}
+.ni svg{width:16px;height:16px;flex:none}
+.ni:hover{background:var(--soft)}
+.ni.on{background:var(--ortint);color:var(--or2)}
+.ni .n{margin-left:auto;font-size:11px;color:var(--mut);font-weight:700}
+.ni.on .n{color:var(--or2)}
+.sp{flex:1}
+/* main */
+.mn{min-width:0;display:flex;flex-direction:column}
+.tb{height:60px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.tb b{font-size:14px;font-weight:700}
+.tb .r{display:flex;align-items:center;gap:14px}
+.ib{width:34px;height:34px;border-radius:50%;border:0;background:none;display:grid;place-items:center;cursor:pointer;color:#55656d;position:relative;transition:background .2s}
+.ib:hover{background:var(--soft)}
+.ib i{position:absolute;top:7px;right:8px;width:7px;height:7px;background:var(--or);border-radius:50%;border:2px solid #fff;box-sizing:content-box}
+.me{display:flex;align-items:center;gap:8px;font-weight:600}
+.av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#ffd7a8,#f6a95b);color:#7a3d00;display:grid;place-items:center;font-weight:800;font-size:11px}
+.burger{display:none}
+.ct{padding:22px 24px 26px;display:flex;flex-direction:column;gap:18px;background:#fcfcfd;flex:1}
+/* welcome */
+.wl{border-radius:18px;background:linear-gradient(110deg,var(--ortint) 30%,#fff3e3 60%,#eaf6f1);border:1px solid #fde3c6;display:grid;grid-template-columns:1fr 260px;align-items:center;overflow:hidden;padding:0 0 0 24px;min-height:118px}
+.wl h1{font-size:21px;font-weight:800;letter-spacing:-.02em}
+.wl p{color:#7b6a58;margin-top:4px;max-width:420px}
+.wl svg{width:100%;height:118px;display:block}
+/* toolbar */
+.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.sr{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:10px;padding:0 12px;height:38px;width:260px;max-width:100%;transition:border-color .2s,box-shadow .2s}
+.sr:focus-within{border-color:var(--or);box-shadow:0 0 0 3px rgba(240,138,36,.14)}
+.sr input{border:0;outline:0;background:none;width:100%;min-width:0}
+.sr svg{color:var(--mut);flex:none}
+.rw{display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:#fff;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+.btn:hover{border-color:#d8dde1;transform:translateY(-1px);box-shadow:0 4px 12px rgba(31,42,48,.07)}
+.btn.o{background:var(--or);border-color:var(--or);color:#fff}
+.btn.o:hover{background:var(--or2)}
+.btn.sm{height:28px;padding:0 12px;font-size:12px;border-radius:8px}
+/* pinned */
+.pin{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pin small{color:var(--mut);font-weight:600;margin-right:4px}
+.pc{display:inline-flex;align-items:center;gap:8px;padding:6px 12px 6px 7px;border-radius:999px;background:#fff;border:1px solid var(--line);font-weight:600;font-size:12.5px;transition:all .2s}
+.pc:hover{border-color:var(--or);transform:translateY(-1px);box-shadow:0 4px 12px rgba(240,138,36,.16)}
+.pc .ic{width:22px;height:22px}.pc .ic svg{width:12px;height:12px}
+/* stats */
+.st{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border:1px solid var(--line);border-radius:14px}
+.st>div{padding:16px 18px;border-right:1px solid var(--line)}
+.st>div:last-child{border:0}
+.st small{display:flex;justify-content:space-between;color:var(--mut);font-weight:600;font-size:12px}
+.st b{display:block;font-size:24px;font-weight:800;letter-spacing:-.02em;margin-top:6px;line-height:1.2}
+.st b em{font-style:normal;color:var(--mut);font-weight:500;font-size:14px}
+/* table */
+.tc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px 14px}
+.th{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px;flex-wrap:wrap}
+.th h2{font-size:14.5px;font-weight:700}
+.fw{position:relative}
+.menu{position:absolute;right:0;top:44px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 34px rgba(31,42,48,.14);padding:6px;z-index:20;min-width:170px;display:none}
+.menu.open{display:block}
+.menu button{display:block;width:100%;text-align:left;border:0;background:none;padding:8px 10px;border-radius:8px;font-weight:600;cursor:pointer}
+.menu button:hover,.menu button.on{background:var(--ortint);color:var(--or2)}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:12px;font-weight:600;color:var(--mut);background:var(--soft);padding:10px 12px;white-space:nowrap}
+th:first-child{border-radius:9px 0 0 9px}th:last-child{border-radius:0 9px 9px 0}
+td{padding:12px;border-bottom:1px solid #f1f2f5;white-space:nowrap}
+tbody tr{transition:background .2s}
+tbody tr:hover{background:#fffaf4}
+tr.sel{background:#fff6ec}
+.ck{width:42px}
+input[type=checkbox]{appearance:none;width:16px;height:16px;border:1.5px solid #cdd3d8;border-radius:5px;background:#fff;cursor:pointer;display:grid;place-items:center;margin:0;transition:all .15s}
+input[type=checkbox]:checked{background:var(--or);border-color:var(--or)}
+input[type=checkbox]:checked:after{content:"";width:8px;height:4px;border:2px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.nm{display:flex;align-items:center;gap:10px;font-weight:600}
+.ic{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;color:#fff;flex:none}
+.ic svg{width:14px;height:14px}
+.pl{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 11px;border-radius:7px}
+.pl.live{background:#e4f6eb;color:var(--ok)}.pl.upd{background:#fff0df;color:var(--or2)}.pl.off{background:#fde8e8;color:var(--bad)}
+.ac{display:flex;gap:6px}
+.ft{display:flex;justify-content:space-between;align-items:center;margin-top:12px;color:var(--mut);flex-wrap:wrap;gap:10px}
+.ft select{border:1px solid var(--line);border-radius:8px;padding:4px 6px;background:#fff;margin-left:6px}
+.pg{display:flex;gap:4px;align-items:center}
+.pg button{min-width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:#fff;font-weight:700;cursor:pointer;color:#55656d;transition:all .15s}
+.pg button:hover:not(:disabled){border-color:var(--or)}
+.pg button.on{background:var(--or);border-color:var(--or);color:#fff}
+.pg button:disabled{opacity:.4;cursor:default}
+.emp{text-align:center;color:var(--mut);padding:36px 0}
+/* drawer */
+.ov{position:fixed;inset:0;background:rgba(31,42,48,.3);opacity:0;pointer-events:none;transition:opacity .3s;z-index:90}
+.ov.open{opacity:1;pointer-events:auto}
+.dr{position:fixed;top:0;right:0;bottom:0;width:380px;max-width:100%;background:#fff;z-index:100;transform:translateX(105%);transition:transform .35s cubic-bezier(.2,.8,.2,1);padding:26px;display:flex;flex-direction:column;gap:18px;box-shadow:-20px 0 50px rgba(31,42,48,.14)}
+.dr.open{transform:none}
+.dr .x{align-self:flex-end;border:0;background:var(--soft);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:16px}
+.dr .ic{width:54px;height:54px}.dr .ic svg{width:26px;height:26px}
+.dr h3{font-size:20px;font-weight:800;letter-spacing:-.02em}
+.dr dl{margin:0;display:grid;grid-template-columns:110px 1fr;gap:10px 8px;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.dr dt{color:var(--mut);font-weight:600}.dr dd{margin:0;font-weight:600}
+.dr p{color:#5b6a72;font-size:14px}
+.dr .btn{justify-content:center;height:44px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,30px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:12px;font-weight:600;opacity:0;transition:all .3s;z-index:120;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.rv{animation:up .6s both}.rv:nth-child(2){animation-delay:.05s}.rv:nth-child(3){animation-delay:.1s}.rv:nth-child(4){animation-delay:.15s}.rv:nth-child(5){animation-delay:.2s}
+@keyframes up{from{opacity:0;transform:translateY(14px)}}
+:focus-visible{outline:3px solid rgba(240,138,36,.55);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:1100px){.hide1{display:none}.st{grid-template-columns:repeat(2,1fr)}.st>div:nth-child(2){border-right:0}.st>div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+@media (max-width:900px){
+body{padding:0}.win{border-radius:0;grid-template-columns:1fr;box-shadow:none}
+.sb{position:fixed;z-index:80;left:0;top:0;bottom:0;width:260px;transform:translateX(-105%);transition:transform .3s;box-shadow:12px 0 40px rgba(0,0,0,.18);overflow-y:auto}.sb.open{transform:none}
+.burger{display:grid;margin-left:-8px}.tb{padding:0 14px}.ct{padding:16px 14px 22px}
+.hide2{display:none}.wl{grid-template-columns:1fr}.wl svg{display:none}.wl{padding:22px}}
+@media (max-width:560px){.st b{font-size:20px}.rw{width:100%}.rw .btn{flex:1;justify-content:center}.sr{width:100%}.me span{display:none}.hide3{display:none}.ac .v{display:none}td,th{padding:10px 8px}.ck{width:30px}}
+</style></head><body>
+<div class="win">
+<aside class="sb" id="sb">
+<div class="logo"><svg width="30" height="30" viewBox="0 0 40 40"><rect width="40" height="40" rx="12" fill="#f08a24"/><path d="M8 27c5-13 11-13 14-6s7 6 10-8" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/><circle cx="31" cy="11" r="3" fill="#fff"/></svg>BackInMotion</div>
+<label class="l">Main</label><div id="nav"></div>
+<label class="l">Others</label>
+<button class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg>Help Centre</button>
+<button class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>Settings</button>
+<div class="sp"></div>
+<button class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>Logout</button>
+</aside>
+
+<div class="mn">
+<div class="tb"><div style="display:flex;align-items:center;gap:6px"><button class="ib burger" aria-label="Menu" onclick="sb.classList.toggle('open')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><b>Staff Hub</b></div>
+<div class="r"><button class="ib" aria-label="Search" onclick="q.focus()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></button><button class="ib" aria-label="Notifications"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 1 12 0c0 6 2 7 2 7H4s2-1 2-7M10 20a2 2 0 0 0 4 0"/></svg><i></i></button><div class="me"><div class="av">AM</div><span>Alex Morgan</span></div></div></div>
+
+<div class="ct">
+<section class="wl rv"><div><h1>Good morning, Alex.</h1><p>Blah blah blah — everything you need is a click away. Pick a shortcut or search below.</p></div>
+<svg viewBox="0 0 260 118" preserveAspectRatio="xMidYMax slice" aria-label="Illustration of people moving forward along a path"><circle cx="205" cy="30" r="17" fill="#fff"/><path d="M0 84C50 58 100 66 150 80S230 66 260 74V118H0z" fill="#ffe0bd"/><path d="M0 118C50 96 110 90 170 86S235 78 260 70" fill="none" stroke="#fff" stroke-width="20" stroke-linecap="round"/>
+<g stroke-linecap="round" fill="none"><circle cx="58" cy="62" r="6" fill="#f2c9a5"/><path d="M58 70l2 19-5 14M60 89l8 12M58 73l-7 10M58 73l8 7" stroke="#c46a0a" stroke-width="4.5"/><circle cx="130" cy="52" r="6.5" fill="#d9a67f"/><path d="M130 60v22l-6 17M130 82l8 15M130 63l-7 12M130 63l7 10" stroke="#f08a24" stroke-width="4.5"/><circle cx="200" cy="42" r="7" fill="#f2c9a5"/><path d="M200 51l-2 24-10 20M198 75l13 17M200 54l-12 9M200 54l14-9" stroke="#2fa36b" stroke-width="5"/></g></svg></section>
+
+<div class="bar rv"><label class="sr"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg><input id="q" type="search" placeholder="Search links…" aria-label="Search links"></label>
+<div class="rw"><button class="btn" id="pinSel" style="display:none">Pin selected</button><button class="btn" onclick="toast('Placeholder: export')">Export List</button><button class="btn" onclick="toast('Placeholder: add shortcut')">+ Add Shortcut</button><button class="btn o" onclick="toast('Placeholder: add link')">+ Add Link</button></div></div>
+
+<div class="pin rv" id="pins"></div>
+<div class="st rv" id="st"></div>
+
+<section class="tc rv"><div class="th"><h2>Resource Directory</h2><div class="fw"><button class="btn sm" id="fb" style="height:32px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 5h18M6 12h12M10 19h4"/></svg>Filter: <span id="fl">All</span></button><div class="menu" id="fm"></div></div></div>
+<table><thead><tr><th class="ck"><input type="checkbox" id="all" aria-label="Select all"></th><th>Resource</th><th>Area</th><th class="hide1">Department</th><th class="hide2">Access</th><th class="hide3">Last Updated</th><th>Status</th><th>Actions</th></tr></thead><tbody id="tb"></tbody></table>
+<div class="ft"><span>Show<select id="per"><option>5</option><option>8</option><option>16</option></select></span><div class="pg" id="pg"></div></div></section>
+</div></div></div>
+
+<div class="ov" id="ov"></div>
+<aside class="dr" id="dr" aria-live="polite"></aside>
+<div class="toast" id="to"></div>
+
+<script>
+/* ===== EDIT YOUR LINKS HERE: [name, area, department, url, icon, updated, status, description] ===== */
+const L=[
+["Patient Charting","Clinical","Nursing","https://example.com/charting","doc","7 Sep 2026","live","Blah blah blah — open patient notes and records."],
+["Scheduling","Clinical","Rostering","https://example.com/schedule","cal","6 Sep 2026","live","Blah blah blah — view shifts and request swaps."],
+["Clinical Guidelines","Clinical","Quality","https://example.com/guidelines","shield","4 Sep 2026","upd","Blah blah blah — protocols and reference material."],
+["Patient Resources","Clinical","Physiotherapy","https://example.com/resources","heart","2 Sep 2026","live","Blah blah blah — handouts and exercise sheets."],
+["Payroll","People & Pay","Finance","https://example.com/payroll","card","30 Aug 2026","live","Blah blah blah — pay stubs and hours worked."],
+["Benefits","People & Pay","HR","https://example.com/benefits","heart","28 Aug 2026","live","Blah blah blah — coverage and enrolment."],
+["Time Off","People & Pay","HR","https://example.com/timeoff","cal","25 Aug 2026","live","Blah blah blah — request and track leave."],
+["Learning Centre","People & Pay","Education","https://example.com/learning","cap","22 Aug 2026","upd","Blah blah blah — courses and certificates."],
+["Supplies","Operations","Logistics","https://example.com/supplies","box","20 Aug 2026","live","Blah blah blah — order equipment and consumables."],
+["Facilities","Operations","Facilities","https://example.com/facilities","box","18 Aug 2026","off","Blah blah blah — room bookings and requests."],
+["Forms Library","Operations","Admin","https://example.com/forms","doc","15 Aug 2026","live","Blah blah blah — everyday forms in one place."],
+["Safety Reporting","Operations","Health & Safety","https://example.com/safety","shield","12 Aug 2026","live","Blah blah blah — report an incident or near miss."],
+["Staff Directory","Company","Admin","https://example.com/directory","user","10 Aug 2026","live","Blah blah blah — find a colleague."],
+["Company Website","Company","Marketing","https://example.com","globe","8 Aug 2026","live","Blah blah blah — the public BackInMotion site."],
+["Brand Guidelines","Company","Marketing","https://example.com/brand","doc","5 Aug 2026","live","Blah blah blah — logos and templates."],
+["Staff Discounts","Company","HR","https://example.com/perks","heart","1 Aug 2026","upd","Blah blah blah — perks and offers."]];
+let pinned=new Set([0,1,4,6]);
+/* ================================================================================================= */
+const I={doc:'<path d="M7 3h8l4 4v14H7z"/><path d="M15 3v4h4M10 12h6M10 16h6"/>',cal:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 11h18"/>',shield:'<path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>',heart:'<path d="M12 21c-5-3-8-7-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 4-3 8-8 11z"/>',card:'<rect x="3" y="6" width="18" height="12" rx="3"/><circle cx="12" cy="12" r="2.5"/>',cap:'<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/>',box:'<path d="M4 8l8-4 8 4v9l-8 4-8-4z"/><path d="M4 8l8 4 8-4M12 12v9"/>',user:'<circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-4 3-6 6-6s6 2 6 6M17 6h4M17 10h4"/>',globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',grid:'<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>'};
+const svg=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${I[k]}</svg>`;
+const areas=["Clinical","People & Pay","Operations","Company"];
+const col={Clinical:"#f08a24","People & Pay":"#4a8fe0",Operations:"#2fa36b",Company:"#8b6ad6"};
+const sTxt={live:"Live",upd:"Updating",off:"Offline"};
+const $=id=>document.getElementById(id);
+let area="All",term="",page=1,per=5,sel=new Set();
+function toast(t){const e=$('to');e.textContent=t;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),1800)}
+function filtered(){return L.map((l,i)=>i).filter(i=>(area=="All"||L[i][1]==area)&&(L[i][0]+L[i][1]+L[i][2]).toLowerCase().includes(term))}
+function draw(){
+ $('nav').innerHTML=["All",...areas].map(a=>`<button class="ni ${a==area?'on':''}" data-a="${a}">${svg(a=="All"?"grid":{Clinical:"heart","People & Pay":"user",Operations:"box",Company:"globe"}[a])}${a=="All"?"Dashboard":a}<span class="n">${a=="All"?L.length:L.filter(l=>l[1]==a).length}</span></button>`).join('');
+ $('fm').innerHTML=["All",...areas].map(a=>`<button class="${a==area?'on':''}" data-f="${a}">${a}</button>`).join('');
+ $('fl').textContent=area;
+ const ids=filtered(),pages=Math.max(1,Math.ceil(ids.length/per));page=Math.min(page,pages);
+ const rows=ids.slice((page-1)*per,page*per);
+ $('tb').innerHTML=rows.length?rows.map(i=>{const l=L[i];return `<tr class="${sel.has(i)?'sel':''}"><td class="ck"><input type="checkbox" data-s="${i}" ${sel.has(i)?'checked':''} aria-label="Select ${l[0]}"></td><td><div class="nm"><span class="ic" style="background:${col[l[1]]}">${svg(l[4])}</span>${l[0]}</div></td><td>${l[1]}</td><td class="hide1">${l[2]}</td><td class="hide2">All staff</td><td class="hide3">${l[5]}</td><td><span class="pl ${l[6]}">${sTxt[l[6]]}</span></td><td><div class="ac"><button class="btn sm v" data-v="${i}">View</button><a class="btn sm o" href="${l[3]}" target="_blank" rel="noopener">Open</a></div></td></tr>`}).join(''):'<tr><td colspan="8" class="emp">No links match your search.</td></tr>';
+ $('all').checked=rows.length>0&&rows.every(i=>sel.has(i));
+ let p=`<button data-p="${page-1}" ${page==1?'disabled':''} aria-label="Previous">‹</button>`;
+ for(let n=1;n<=pages;n++)p+=`<button class="${n==page?'on':''}" data-p="${n}">${n}</button>`;
+ p+=`<button data-p="${page+1}" ${page==pages?'disabled':''} aria-label="Next">›</button>`;$('pg').innerHTML=p;
+ $('pinSel').style.display=sel.size?'inline-flex':'none';$('pinSel').textContent=`Pin selected (${sel.size})`;
+ $('pins').innerHTML='<small>Pinned</small>'+[...pinned].map(i=>`<a class="pc" href="${L[i][3]}" target="_blank" rel="noopener"><span class="ic" style="background:${col[L[i][1]]}">${svg(L[i][4])}</span>${L[i][0]}</a>`).join('')||'';
+ const live=L.filter(l=>l[6]=="live").length;
+ $('st').innerHTML=`<div><small>Total Links</small><b>${L.length}</b></div><div><small>Live Now</small><b>${live} <em>/ ${L.length}</em></b></div><div><small>Pinned</small><b>${pinned.size} <em>shortcuts</em></b></div><div><small>Areas</small><b>${areas.length} <em>departments</em></b></div>`;
+}
+function open_(i){const l=L[i];$('dr').innerHTML=`<button class="x" aria-label="Close" data-x>✕</button><span class="ic" style="background:${col[l[1]]}">${svg(l[4])}</span><div><h3>${l[0]}</h3><div style="margin-top:8px"><span class="pl ${l[6]}">${sTxt[l[6]]}</span></div></div><p>${l[7]}</p><dl><dt>Area</dt><dd>${l[1]}</dd><dt>Department</dt><dd>${l[2]}</dd><dt>Access</dt><dd>All staff</dd><dt>Last updated</dt><dd>${l[5]}</dd></dl><a class="btn o" href="${l[3]}" target="_blank" rel="noopener">Open ${l[0]}</a><button class="btn" data-pin="${i}">${pinned.has(i)?'Unpin from dashboard':'Pin to dashboard'}</button>`;$('dr').classList.add('open');$('ov').classList.add('open')}
+function close_(){$('dr').classList.remove('open');$('ov').classList.remove('open')}
+document.addEventListener('click',e=>{const t=e.target;let b;
+ if(b=t.closest('[data-a]')){area=b.dataset.a;page=1;$('sb').classList.remove('open');draw()}
+ else if(b=t.closest('[data-f]')){area=b.dataset.f;page=1;$('fm').classList.remove('open');draw()}
+ else if(t.closest('#fb')){$('fm').classList.toggle('open')}
+ else if(!t.closest('.fw'))$('fm').classList.remove('open');
+ if(b=t.closest('[data-p]')){page=+b.dataset.p;draw()}
+ if(b=t.closest('[data-v]'))open_(+b.dataset.v);
+ if(t.closest('[data-x]')||t.id=='ov')close_();
+ if(b=t.closest('[data-pin]')){const i=+b.dataset.pin;pinned.has(i)?pinned.delete(i):pinned.add(i);draw();open_(i);toast(pinned.has(i)?'Pinned':'Unpinned')}
+});
+document.addEventListener('change',e=>{const t=e.target;
+ if(t.dataset.s!==undefined){const i=+t.dataset.s;t.checked?sel.add(i):sel.delete(i);draw()}
+ if(t.id=='all'){const ids=filtered().slice((page-1)*per,page*per);ids.forEach(i=>t.checked?sel.add(i):sel.delete(i));draw()}
+ if(t.id=='per'){per=+t.value;page=1;draw()}});
+$('q').addEventListener('input',e=>{term=e.target.value.trim().toLowerCase();page=1;draw()});
+$('pinSel').onclick=()=>{sel.forEach(i=>pinned.add(i));toast(sel.size+' pinned');sel.clear();draw()};
+document.addEventListener('keydown',e=>{if(e.key=='Escape')close_()});
+draw();
+</script></body></html>
